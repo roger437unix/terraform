@@ -14,7 +14,7 @@ provider "aws" {
 
 resource "aws_eks_cluster" "k8s" {
   role_arn = "arn:aws:iam::590183853636:role/LabRole"
-  name= "k8s"
+  name= var.eks_name
   version = "1.29"
   vpc_config {
     subnet_ids = ["subnet-0b2b09ce751084d7a","subnet-051b071ec0159d166", "subnet-05d45f31b8fe7f50a"]    
@@ -29,8 +29,8 @@ resource "aws_eks_node_group" "node" {
     subnet_ids = ["subnet-0b2b09ce751084d7a","subnet-051b071ec0159d166", "subnet-05d45f31b8fe7f50a"]   
     
     scaling_config {
-        desired_size = 2
+        desired_size = var.qtde_nodes
         max_size     = 3
-        min_size     = 2                
+        min_size     = 1                
     }
 }
